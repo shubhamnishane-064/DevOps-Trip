@@ -94,8 +94,6 @@ Linux file system and permissions, process and service management, Bash scriptin
 | `%` broke the cron date command | Moved the logic into a script (Day 5) |
 | Config line `SOURCE_DIR = /path` failed | No spaces around `=` in shell files (see Day 7 error log) |
 
-Full error write-ups are in each day's `troubleshooting/` folder and in `troubleshooting-index.md`.
-
 ## Future Improvements
 - Send an email or Slack message when the result is not "ALL GOOD"
 - On the (Week 6) we use this backup file on aws 

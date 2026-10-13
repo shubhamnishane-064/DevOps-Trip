@@ -43,16 +43,12 @@ echo $?                    # 0 = all good
 ./install.sh --install
 crontab -l
 ```
-Result: all checks ran, a verified backup was created, logs and reports were saved, and cron jobs were installed. (Add screenshots in `mega-project/docs/`.)
 
 ## What I Learned
 - A project is notes + working code + a README + tests + error logs.
 - Config files keep settings out of the code (and need no spaces around `=`).
 - Exit codes let scripts talk to cron, CI and monitoring tools.
 - Test the failure cases, not only the working one.
-
-## Errors Faced
-- `SOURCE_DIR: command not found` (spaces around `=` in the config): see [`troubleshooting/error-01.md`](troubleshooting/error-01.md)
 
 ## Notes
 Full notes: [`documentation/notes.md`](documentation/notes.md)
