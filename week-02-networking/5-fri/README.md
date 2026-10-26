@@ -77,8 +77,4 @@ For detailed troubleshooting steps, commands, root causes, and fixes, see [`trou
 
 
 ## Tomorrow
-- Continue with the next topic in the Networking for DevOps learning plan.
-- Review today's firewall and VPN concepts.
-- Finish any incomplete hands-on exercises.
-- Update documentation with actual command outputs and observations.
-- Commit and push the completed work to the Git repository.
+ The next day we see the ss, tcpdump, traceroute
