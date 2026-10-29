@@ -1,37 +1,5 @@
-# Error Log: short error title
+These days, no errors occur.
 
-**Date:** YYYY-MM-DD  |  **Day:** Week 3 Monday  |  **Severity:** Low / Medium / High
+But you should know about this: when you first start using Git on your machine, you set up the remote origin as well as your account configuration. In Git, when you edit something on the remote, a problem occurs in your local repository. To solve this, first use git pull so your local repository is updated.
 
-## 1. Symptom (what I saw)
-```
-paste exact error message / screenshot path here
-```
-
-## 2. Context (what I was doing)
-Command / config / step that triggered it.
-
-## 3. Investigation (how I debugged)
-- [ ] Read the error carefully
-- [ ] Checked logs (`journalctl`, `docker logs`, CloudWatch ...)
-- [ ] Reproduced it
-- [ ] Searched docs / forums
-
-Commands tried:
-```bash
-# command 1  -> result
-# command 2  -> result
-```
-
-## 4. Root Cause
-One or two sentences: WHY it happened.
-
-## 5. Fix
-```bash
-# exact commands / config change that solved it
-```
-
-## 6. Prevention / Lesson Learned
-What I will do differently next time.
-
-## 7. References
-- links
+In a merge, “ours” is the current branch and “theirs” is the incoming one. In a rebase, they are reversed because your own commits are the ones being replayed.
