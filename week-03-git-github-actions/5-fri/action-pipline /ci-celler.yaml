@@ -1,0 +1,49 @@
+# ci-caller.yml - CALLS the reusable workflow. Place it at .github/workflows/ci-caller.yml
+name: CI (calls the reusable workflow)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: caller-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:                              # a job that only has "uses" (no runs-on, no steps)
+    uses: ./.github/workflows/shell-quality.yml
+    with:
+      path: .
+      severity: warning
+
+  quality-by-week:                      # the same workflow once per folder (matrix + reusable workflow)
+    strategy:
+      fail-fast: false
+      matrix:
+        path: [week-01-linux-bash, week-02-networking, week-03-git-github-actions]
+    uses: ./.github/workflows/shell-quality.yml
+    with:
+      path: ${{ matrix.path }}
+      lint-workflows: false             # already done in the "quality" job
+
+  report:
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show the output of the reusable workflow
+        env:
+          CHECKED: ${{ needs.quality.outputs.scripts-checked }}
+        run: echo "The reusable workflow checked $CHECKED shell scripts"
+
+  # The same reusable workflow, called from ANOTHER repository (needs the file to be committed there):
+  # quality-remote:
+  #   uses: shubhamnishane-064/DevOps-Trip/.github/workflows/shell-quality.yml@main
+  #   with:
+  #     path: .
+  #   secrets: inherit                 # pass the caller's secrets (only if the called workflow needs them)

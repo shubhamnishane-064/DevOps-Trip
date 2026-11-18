@@ -1,0 +1,36 @@
+# lint-shell - a COMPOSITE ACTION: several steps packaged as one reusable step.
+# Place it at .github/actions/lint-shell/ in the repository root. Use it with:
+#   - uses: ./.github/actions/lint-shell
+#     with: { path: week-01-linux-bash, severity: warning }
+name: Lint shell scripts
+description: Runs bash -n and ShellCheck on every .sh file under a folder and reports how many were checked.
+
+inputs:
+  path:
+    description: Folder to search for .sh files
+    required: false
+    default: '.'
+  severity:
+    description: Lowest ShellCheck severity that fails the check (error, warning, info, style)
+    required: false
+    default: warning
+
+outputs:
+  count:
+    description: Number of shell scripts that were checked
+    value: ${{ steps.lint.outputs.count }}
+
+runs:
+  using: composite                      # this is what makes it a composite action
+  steps:
+    - name: Make sure ShellCheck is installed
+      shell: bash                       # EVERY run step in a composite action needs an explicit shell
+      run: command -v shellcheck >/dev/null || sudo apt-get install -y shellcheck
+
+    - name: Check the scripts
+      id: lint
+      shell: bash
+      env:
+        INPUT_PATH: ${{ inputs.path }}            # inputs go through env, never pasted into the script
+        INPUT_SEVERITY: ${{ inputs.severity }}
+      run: bash "$GITHUB_ACTION_PATH/lint_shell.sh" "$INPUT_PATH" "$INPUT_SEVERITY"
